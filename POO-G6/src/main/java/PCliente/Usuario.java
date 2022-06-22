@@ -8,6 +8,16 @@ package PCliente;
  *
  * @author Joshua
  */
-public class Usuario {
+public abstract class Usuario {
+    
+    protected String nCedula;
+    protected String nombre;
+    protected String apellido;
+    protected String nombreUsuario;
+    protected String contraseña;
+    
+    
+    
+    public abstract void consultarReserva();
     
 }

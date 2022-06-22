@@ -12,5 +12,6 @@ package com.mycompany.poo.g6;
 public class POOG6 {
 public static void main(String[] args) {
         System.out.println("Hello World!");
+        
     }
 }
