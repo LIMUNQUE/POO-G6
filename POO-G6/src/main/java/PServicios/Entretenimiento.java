@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.poo.g6;
+package PServicios;
 
 /**
  *
- * @author Joshua
+ * @author Dell
  */
-public class Servicio {
+public class Entretenimiento {
     
 }
