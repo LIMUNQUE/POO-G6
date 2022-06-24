@@ -12,7 +12,8 @@ public class Hospedaje extends Servicio{
     protected String FechaEntrada;
     protected String FechaSalida;
     
-    public Hospedaje(String FechaEntrada, String FechaSalida, String identificador,double valorPagar,int puntuacion, String ciudad_reserva){
+    public Hospedaje(String FechaEntrada, String FechaSalida, String identificador,
+            double valorPagar,int puntuacion, String ciudad_reserva){
         super(identificador,valorPagar,puntuacion,ciudad_reserva);
         this.FechaEntrada = FechaEntrada;
         this.FechaSalida = FechaSalida;
@@ -32,8 +33,8 @@ public class Hospedaje extends Servicio{
     }
     
     @Override
-    public void mostrarDatos(){
-        super.mostrarDatos();
-        System.out.println("");
+    public void mostrarDatosReserva(){
+        super.mostrarDatosReserva();
+        System.out.println("TIPO RESERVA: HOSPEDAJE\nFECHAS: "+FechaEntrada+"/"+FechaSalida);
     }
 }

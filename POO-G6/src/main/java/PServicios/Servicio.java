@@ -46,7 +46,7 @@ public class Servicio {
         this.ciudad_reserva = ciudad_reserva;
     }
     
-    public void mostrarDatos(){
-        System.out.println("");
+    public void mostrarDatosReserva(){
+        System.out.println("CÓDIGO RESERVA: "+identificador+"\nCIUDAD: "+ciudad_reserva+"\nVALOR PAGAR: "+valorPagar);
     }
 }
