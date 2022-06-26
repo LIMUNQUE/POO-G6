@@ -4,14 +4,16 @@
  */
 
 package com.mycompany.poo.g6;
-
+import PCliente.Cliente;
+import Enums.TipoCliente;
 /**
  *
  * @author Joshua
  */
 public class POOG6 {
 public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Cliente cl1 = new Cliente("0909","Juan","Torres","aaa","123",TipoCliente.C,18,"55");
+        cl1.consultarReserva();
         
     }
 }
