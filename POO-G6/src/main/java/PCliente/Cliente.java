@@ -4,6 +4,7 @@
  */
 package PCliente;
 import Enums.TipoCliente;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
@@ -35,6 +36,8 @@ public class Cliente extends Usuario{
     
 
     public void consultarReserva(){
+    }
+    public void reservarHospedaje(){
         System.out.print("Ingrese fecha de entrada: ");
         String fEntrada = sc.nextLine();
         System.out.print("Ingrese fecha de salida: ");
@@ -52,22 +55,52 @@ public class Cliente extends Usuario{
         System.out.print("Ingrese el nombre de la ciudad donde se alojará: ");
         String ciudad = sc.nextLine();
         System.out.println();
-        
-        System.out.println("Estos son los hoteles disponibles: ");
-        String[] hoteles = {"Flore Hotel Boutique","Mansión Alcazar", "Four Points by Sheraton Cuenca", "Selina Cuenca", "Morenica del Rosario", "Hotel Presidente"};
-        for (int i=0; i<hoteles.length;i++){
-            System.out.println((i+1)+hoteles[i]);
+        if(opcionHospedaje==1){
+            System.out.println("Estos son los hoteles disponibles: ");
+            ArrayList<String> lineas = ManejoArchivos.LeeFichero("hoteles.txt");
+            
+            for(int i=1; i<lineas.size();i++){
+                System.out.println(i+") "+lineas.get(i).split(",")[2]);
+            }
+            
+            System.out.println();
+            System.out.print("Elija una opción: ");
+            int opcionHotel = sc.nextInt();
+            System.out.println();
+            
+            String[] informacion = lineas.get(opcionHotel).split(",");
+            
+            mostrarInformacion(informacion);
+            
+            System.out.println();
+            //Elegido el hotel elegimos las habitaciones
+            System.out.println("Habitaciones disponibles:");
+            ArrayList<String> habitaciones = ManejoArchivos.LeeFichero("habitaciones.txt");
+            for(String habitacion: habitaciones){
+                String[] cuartosInformacion=habitacion.split(",");
+                if(cuartosInformacion[5].equals("DISPONIBLE")){
+                    System.out.printf("%s - %s - %s",cuartosInformacion[1],cuartosInformacion[3],cuartosInformacion[2]);
+                }
+            }
+            
+            
         }
-        System.out.println();
-        
-        System.out.print("Elija una opción: ");
-        int opcionHotel = sc.nextInt();
-        
-        System.out.println();
-        System.out.println("Datos de "+hoteles[opcionHotel]);
-    }
-    public void reservarHospedaje(){
-        
+        else if(opcionHospedaje==2){
+            System.out.println("Estos son los departamentos disponibles: ");
+            ArrayList<String> lineas = ManejoArchivos.LeeFichero("departamentos.txt");
+            for(int i=1; i<lineas.size();i++){
+                System.out.println(i+") "+lineas.get(i).split(",")[1]);
+            }
+            
+            System.out.println();
+            System.out.print("Elija una opción: ");
+            int opcionDepa = sc.nextInt();
+            System.out.println();
+            
+            String[] informacion = lineas.get(opcionDepa).split(",");
+            
+            mostrarInformacion(informacion);
+        }
     }
     public void reservarTransporte(){
         
@@ -80,5 +113,18 @@ public class Cliente extends Usuario{
     }
     public double PagarReserva(int n_cheque){
         return 0.1f;
+    }
+    
+    private void mostrarInformacion(String[] informacion){
+        //código,Costo,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
+        System.out.println("Datos de "+informacion[1]);
+        System.out.println();
+        System.out.println("/**********************/");
+        System.out.println("Dirección: "+informacion[4]);
+        System.out.println("Costo por noche: "+ informacion[1]);
+        System.out.println("Incluye Desayuno: "+ informacion[5]);
+        System.out.println("Incluye Parqueo: "+informacion[6]);
+        System.out.println("Permite cancelación gratis: "+informacion[7]);
+        System.out.println("/**********************/");
     }
 }

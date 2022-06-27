@@ -1,2 +1,7 @@
-códigoHotel,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
-3645,Four Points by Sheraton Cuenca,5,Centro histórico de Cuenca,true,true,false
+códigoHotel,costo,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
+1111,11,Flore Hotel Boutique,1,Centro histórico de Cuenca,true,false,false
+2222,22,Mansión Alcaza,2,9 de Octubre,false,true,true
+3333,33,Four Points by Sheraton Cuenca,3,6 de Marzo,true,true,false
+4444,44,Selina Cuenca,4,Bahia,true,false,false
+5555,55,Morenica del Rosario,5,Ceibos,false,true,false
+6666,66,Hotel Presidente,6,Martha de Roldos,true,true,true

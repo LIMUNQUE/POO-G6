@@ -1,0 +1,7 @@
+códigoHotel,costo,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
+1111,11,Depa1,1,Centro histórico de Cuenca,true,false,false
+2222,22,Depa2,2,9 de Octubre,false,true,true
+3333,33,Depa3,3,6 de Marzo,true,true,false
+4444,44,Depa4,4,Bahia,true,false,false
+5555,55,Depa5,5,Ceibos,false,true,false
+6666,66,Depa6,6,Martha de Roldos,true,true,true
