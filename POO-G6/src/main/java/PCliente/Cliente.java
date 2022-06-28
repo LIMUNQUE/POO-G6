@@ -4,15 +4,20 @@
  */
 package PCliente;
 import Enums.TipoCliente;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Joshua
  */
 public class Cliente extends Usuario{
     private Scanner sc = new Scanner(System.in);
-    
+    private static int numeroReserva = 0;
     private TipoCliente tipoCliente;
     private int edad;
     private String nT_credito;
@@ -38,70 +43,126 @@ public class Cliente extends Usuario{
     public void consultarReserva(){
     }
     public void reservarHospedaje(){
-        System.out.print("Ingrese fecha de entrada: ");
-        String fEntrada = sc.nextLine();
-        System.out.print("Ingrese fecha de salida: ");
-        String fSalida = sc.nextLine();
-        
-        System.out.println("Que tipo de hospedaje busca?");
-        System.out.println("1. Hotel");
-        System.out.println("2. Despartamento");
-        System.out.println();
-        
-        System.out.print("Elija una opción: ");
-        int opcionHospedaje = sc.nextInt();
-        System.out.println();
-        
-        System.out.print("Ingrese el nombre de la ciudad donde se alojará: ");
-        String ciudad = sc.nextLine();
-        System.out.println();
-        if(opcionHospedaje==1){
-            System.out.println("Estos son los hoteles disponibles: ");
-            ArrayList<String> lineas = ManejoArchivos.LeeFichero("hoteles.txt");
-            
-            for(int i=1; i<lineas.size();i++){
-                System.out.println(i+") "+lineas.get(i).split(",")[2]);
-            }
-            
+        boolean condition=false;
+        while(!condition){
+            System.out.println("MM/dd/yyyy");
+            System.out.print("Ingrese fecha de entrada: ");
+            String fEntrada = sc.nextLine();
+            System.out.print("Ingrese fecha de salida: ");
+            String fSalida = sc.nextLine();
+            //2022-01-03
+            LocalDate f1= LocalDate.parse(fEntrada, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            LocalDate f2= LocalDate.parse(fSalida, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            Duration dd = Duration.between(f1.atStartOfDay(),f2.atStartOfDay());
+
+            System.out.println("Que tipo de hospedaje busca?");
+            System.out.println("1. Hotel");
+            System.out.println("2. Despartamento");
             System.out.println();
+
             System.out.print("Elija una opción: ");
-            int opcionHotel = sc.nextInt();
+            int opcionHospedaje = sc.nextInt();
             System.out.println();
-            
-            String[] informacion = lineas.get(opcionHotel).split(",");
-            
-            mostrarInformacion(informacion);
-            
+
+            System.out.print("Ingrese el nombre de la ciudad donde se alojará: ");
+            String ciudad = sc.nextLine();
             System.out.println();
-            //Elegido el hotel elegimos las habitaciones
-            System.out.println("Habitaciones disponibles:");
-            ArrayList<String> habitaciones = ManejoArchivos.LeeFichero("habitaciones.txt");
-            for(String habitacion: habitaciones){
-                String[] cuartosInformacion=habitacion.split(",");
-                if(cuartosInformacion[5].equals("DISPONIBLE")){
-                    System.out.printf("%s - %s - %s",cuartosInformacion[1],cuartosInformacion[3],cuartosInformacion[2]);
+            if(opcionHospedaje==1){
+                System.out.println("Estos son los hoteles disponibles: ");
+                ArrayList<String> lineas = ManejoArchivos.LeeFichero("hoteles.txt");
+
+                for(int i=1; i<lineas.size();i++){
+                    System.out.println(i+") "+lineas.get(i).split(",")[2]);
                 }
+
+                System.out.println();
+                System.out.print("Elija una opción: ");
+                int opcionHotel = sc.nextInt();
+                System.out.println();
+
+                String[] informacion = lineas.get(opcionHotel).split(",");
+
+                mostrarInformacion(informacion);
+
+                //Elegido el hotel elegimos las habitaciones
+                System.out.println("Habitaciones disponibles:");
+                ArrayList<String> habitaciones = ManejoArchivos.LeeFichero("habitaciones.txt");
+                ArrayList<String[]> habitacionesLibres = new ArrayList<>();
+                String codigo=informacion[0];
+                for(String habitacion: habitaciones){
+                    String[] cuartosInformacion=habitacion.split(",");
+                    if(cuartosInformacion[0].equals(informacion[0])){
+                        if(cuartosInformacion[5].equals("DISPONIBLE")){
+                            habitacionesLibres.add(cuartosInformacion);
+                            System.out.printf("%s - %s personas - %s %n",cuartosInformacion[1],cuartosInformacion[3],cuartosInformacion[2]);
+                        }
+
+                    }
+                }
+                if(!habitacionesLibres.isEmpty()){
+                    int index = (int)(Math.random()*habitacionesLibres.size());
+                    String[] habitacionRandom = habitacionesLibres.get(index);
+                    System.out.println("Se le ha elegido una habitación "+ habitacionRandom[1]+" por "+dd.toDays()+" noches");
+                    System.out.println("El costo por a pagar es de: " + (Float.parseFloat(habitacionRandom[2])*dd.toDays()));
+                    System.out.println();
+                    sc.nextLine();
+                    System.out.println("Desea reservar? ");
+                    String resp = sc.nextLine();
+                    if(resp.toLowerCase().equals("si")){
+                        System.out.println("Reserva realizada :)");
+                        condition = true;
+                        numeroReserva=numeroReserva+1;
+                        String registro =String.format("%b,%s,Hotel,%s,%f%n", numeroReserva,LocalDate.now(),nombre,(Float.parseFloat(habitacionRandom[2])*dd.toDays()));
+                        ManejoArchivos.EscribirArchivo("reservas.txt", registro);
+                    }
+                    //else MandarAlMenu()
+                }
+                else{//No hay habitaciones libres en ese hotel, hay que elegir de nu nuevo
+                    System.out.println("No hay habitaciones libres");
+                    continue;
+                }
+
             }
-            
-            
-        }
-        else if(opcionHospedaje==2){
-            System.out.println("Estos son los departamentos disponibles: ");
-            ArrayList<String> lineas = ManejoArchivos.LeeFichero("departamentos.txt");
-            for(int i=1; i<lineas.size();i++){
-                System.out.println(i+") "+lineas.get(i).split(",")[1]);
+            else if(opcionHospedaje==2){ //Departamento
+                System.out.println("Estos son los departamentos disponibles: ");
+                ArrayList<String> lineas = ManejoArchivos.LeeFichero("departamentos.txt");
+                for(int i=1; i<lineas.size();i++){
+                    System.out.println(i+") "+lineas.get(i).split(",")[2]);
+                }
+
+                System.out.println();
+                System.out.print("Elija una opción: ");
+                int opcionDepa = sc.nextInt();
+                System.out.println();
+
+                String[] informacion = lineas.get(opcionDepa).split(",");
+
+                mostrarInformacion(informacion);
+
+                //Elejido el departamento, no hay que mostrar habitaciones
+                sc.nextLine();
+                System.out.println("Se le ha elegido el departamento "+informacion[2] +"por "+dd.toDays()+" noches");
+                System.out.print("Quiere registrarse Aquí? ");
+                String resp = sc.nextLine();
+                if(resp.toLowerCase().equals("si")){
+                        condition = true;
+                        numeroReserva=numeroReserva+1;
+                        String registro =String.format("%b,%s,Departamento,%s,%s%n", numeroReserva,LocalDate.now(),nombre,informacion[1]);
+                        ManejoArchivos.EscribirArchivo("reservas.txt", registro);
+                        
+                }
+                //else mandarAlMenu();
             }
-            
-            System.out.println();
-            System.out.print("Elija una opción: ");
-            int opcionDepa = sc.nextInt();
-            System.out.println();
-            
-            String[] informacion = lineas.get(opcionDepa).split(",");
-            
-            mostrarInformacion(informacion);
+            sc.close();
         }
     }
+    
+    
+    
+    
+    
+    
+    
     public void reservarTransporte(){
         
     }
@@ -117,7 +178,7 @@ public class Cliente extends Usuario{
     
     private void mostrarInformacion(String[] informacion){
         //código,Costo,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
-        System.out.println("Datos de "+informacion[1]);
+        System.out.println("Datos de "+informacion[2]);
         System.out.println();
         System.out.println("/**********************/");
         System.out.println("Dirección: "+informacion[4]);
@@ -126,5 +187,6 @@ public class Cliente extends Usuario{
         System.out.println("Incluye Parqueo: "+informacion[6]);
         System.out.println("Permite cancelación gratis: "+informacion[7]);
         System.out.println("/**********************/");
+        System.out.println();
     }
 }
