@@ -11,6 +11,7 @@ import Enums.TransmisionV;
  * @author Dell
  */
 public class Vehiculo extends Servicio {
+    private String codigoVehiculo;
     private String marca;
     private String modelo;
     private String placa;
@@ -20,10 +21,11 @@ public class Vehiculo extends Servicio {
     private double valorxDia;
     private TransmisionV transmision;
     
-    public Vehiculo(String marca, String modelo, String placa, String color, int capacidad, 
+    public Vehiculo(String codigoVehiculo,String marca, String modelo, String placa, String color, int capacidad, 
             Estado estado, double valorxDia, TransmisionV transmision, String identificador,
             double valorPagar,int puntuacion, String ciudad_reserva ){
         super(identificador,valorPagar,puntuacion,ciudad_reserva);
+        this.codigoVehiculo = codigoVehiculo;
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
@@ -32,6 +34,14 @@ public class Vehiculo extends Servicio {
         this.estado = estado;
         this.valorxDia = valorxDia;
         this.transmision = transmision;
+    }
+
+    public String getCodigoVehiculo() {
+        return codigoVehiculo;
+    }
+
+    public void setCodigoVehiculo(String codigoVehiculo) {
+        this.codigoVehiculo = codigoVehiculo;
     }
     
      public String getMarca() {
@@ -86,6 +96,6 @@ public class Vehiculo extends Servicio {
     @Override
     public void mostrarDatosReserva(){
         super.mostrarDatosReserva();
-        System.out.println("TIPO RESERVA: TRANSPORTE\nCódigo vehiculo: "+placa+"\nCosto por día: "+valorxDia);
+        System.out.println("TIPO RESERVA: TRANSPORTE\nCódigo vehiculo: "+codigoVehiculo+"\nCosto por día: "+valorxDia);
     }
 }
