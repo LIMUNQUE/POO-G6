@@ -7,4 +7,5 @@ Enums\TipoHabitacion.class
 Enums\TransmisionV.class
 com\mycompany\poo\g6\Sistema.class
 com\mycompany\poo\g6\Servicio.class
+PCliente\ManejoArchivos.class
 PCliente\Usuario.class
