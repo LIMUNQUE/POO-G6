@@ -4,6 +4,8 @@
  */
 package com.mycompany.poo.g6;
 import Enums.TipoCliente;
+import PServicios.Servicio;
+import PCliente.Cliente;
 /**
  *
  * @author Gerson
