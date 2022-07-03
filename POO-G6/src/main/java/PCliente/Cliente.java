@@ -7,9 +7,7 @@ import Enums.TipoCliente;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 /**
  *
