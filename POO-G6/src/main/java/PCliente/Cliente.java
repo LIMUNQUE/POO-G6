@@ -6,6 +6,7 @@ package PCliente;
 import Enums.Estado;
 import Enums.TipoCliente;
 import Enums.TransmisionV;
+import PServicios.Entretenimiento;
 import PServicios.Vehiculo;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -208,6 +209,7 @@ public class Cliente extends Usuario{
                 System.out.println("¿Desea reservar otro vehículo?");
                 System.out.print("1) Si\n2) No\nSeleccione una opcion:");
                 int otraReserva = sc.nextInt();
+                sc.nextLine();
                 if(otraReserva==2){
                     //Finalizar la reserva
                     condicion = true;
@@ -222,9 +224,76 @@ public class Cliente extends Usuario{
             
         }
     }
+    
     public void ReservarEntretenimiento(){
+        boolean condicion = false;
         
+        while(!condicion){
+        System.out.print("Ingrese el nombre de la ciudad donde se alojará: ");
+        String ciudadEnt = sc.nextLine();
+        System.out.print("Ingrese el número de personas que asistirán: ");
+        int numero_persona = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Paquetes Entretenimiento");
+        System.out.println("*********************************************************************");
+        ArrayList<String> entretenimientos = ManejoArchivos.LeeFichero("entretenimiento.txt");
+        for(int i=1; i<entretenimientos.size();i++){
+            if(entretenimientos.get(i).split(";")[0].equals(ciudadEnt)){
+                System.out.println(i+"."+entretenimientos.get(i).split(";")[1]);
+            }
+            else{
+                System.out.println("No se encontraron paquetes para la ciudad indicada.");
+                break;
+                //Hacer volver al menu principal.
+            }
+             
+        }
+        System.out.print("Elija una opción para conocer más: ");
+        int opcion = sc.nextInt();
+                sc.nextLine();    
+                System.out.println("*********************************************************************");
+                System.out.println("Descripcion: "+entretenimientos.get(opcion).split(";")[2]);
+                System.out.println("Costo por persona: "+entretenimientos.get(opcion).split(";")[3]);
+                System.out.println("Salidas: "+entretenimientos.get(opcion).split(";")[4]);
+                System.out.println("Fecha para realizar la ruta: "+entretenimientos.get(opcion).split(";")[5]);
+                System.out.println("*********************************************************************");
+        
+        System.out.println("¿Desea reservar?"
+                + "\n 1) Si"
+                + "\n 2) No");
+        System.out.print("Escoja una opcion: ");
+        int validarReserva = sc.nextInt();
+        sc.nextLine();
+        if(validarReserva == 1){
+            System.out.println("/************RESERVA GENERADA****************/"
+                        + "\n/*                                          */"
+                        + "\n/********************************************/");
+            numeroReserva = numeroReserva+1;
+            String FechaInicio_Fin = entretenimientos.get(opcion).split(";")[5];
+            String costo_persona = entretenimientos.get(opcion).split(";")[3];
+            double costo_persona_conv =Double.parseDouble(costo_persona);
+            double ValorPagar = numero_persona * costo_persona_conv;
+            
+            Entretenimiento e = new Entretenimiento(FechaInicio_Fin,entretenimientos.get(opcion).split(";")[1],Estado.DISPONIBLE,"",ValorPagar,0,ciudadEnt);
+            e.mostrarDatosReserva();
+            ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()+",entretenimiento,"+nombre+" "+ apellido+","+FechaInicio_Fin+","+FechaInicio_Fin+","+ValorPagar);
+        }
+        System.out.println("¿Desea reservar otro paquete de entretenimiento?");
+                System.out.print("1) Si\n2) No\nSeleccione una opcion:");
+                int otraReserva = sc.nextInt();
+                sc.nextLine();
+                if(otraReserva==2){
+                    //Finalizar la reserva
+                    condicion = true;
+                    
+                }
+                 else{
+                //Regresar al menú principal
+                    }
+            }
     }
+    
+    
     public double PagarReserva(String nT_credito, int anio_venc, int mes_venc){
         return 0.1f;
     }

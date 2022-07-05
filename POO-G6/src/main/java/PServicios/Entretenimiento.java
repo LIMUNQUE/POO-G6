@@ -46,6 +46,6 @@ public class Entretenimiento extends Servicio{
     @Override
     public void mostrarDatosReserva(){
         super.mostrarDatosReserva();
-        System.out.println("TIPO RESERVA: ENTRETENIMIENTO\nFecha: "+dias+" PAQUETE: "+descripcion);
+        System.out.println("TIPO RESERVA: ENTRETENIMIENTO\nFecha: "+dias+"\nPAQUETE: "+descripcion);
     }
 }
