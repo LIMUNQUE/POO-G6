@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 public class Cliente extends Usuario{
     private Scanner sc = new Scanner(System.in);
     private static int numeroReserva = 0;
+    private static int numeroPago = 0;
     private TipoCliente tipoCliente;
     private int edad;
     private String nT_credito;
@@ -295,6 +296,39 @@ public class Cliente extends Usuario{
     
     
     public double PagarReserva(String nT_credito, int anio_venc, int mes_venc){
+        
+        double descuento = 0.15; 
+        double valorPagar = 0;
+        ManejoArchivos.EscribirArchivo("pagos.txt", "numeroReserva,numeroPago,cliente,fechaPago,valorPagar,valorPagarFinal,tipoPago,numero,(mes/año)caducidad");
+        
+        if (tipoCliente == TipoCliente.C){
+            double aumento = valorPagar*0.10;
+            double valorPagarTotal = valorPagar+aumento;
+            numeroPago = numeroPago+1;
+            System.out.println("¿Desea confirmar el pago?"
+                    + "\n1) Si"
+                    + "\n2) No");
+            int opcionpago = sc.nextInt();
+            sc.nextLine();
+            if(opcionpago == 1){
+                System.out.println("El costo total del pago es: "+valorPagarTotal);
+                
+                ManejoArchivos.EscribirArchivo("pagos.txt", numeroReserva+","
+                +numeroPago+","+nombre+" "+apellido+","+LocalDate.now()+","
+                +valorPagar+","+valorPagarTotal+",TARJETA,"+nT_credito+","
+                +"("+anio_venc+"/"+mes_venc+")");
+                
+            }
+            else{
+                //retornar al menú principal
+            }
+        }
+        
+        
+      
+        
+        
+        
         return 0.1f;
     }
     public double PagarReserva(int n_cheque){
