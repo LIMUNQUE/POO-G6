@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package PCliente;
+import Enums.Estado;
 import Enums.TipoCliente;
+import Enums.TransmisionV;
+import PServicios.Vehiculo;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,6 +43,7 @@ public class Cliente extends Usuario{
 
     public void consultarReserva(){
     }
+    
     public void reservarHospedaje(){
         boolean condition=false;
         while(!condition){
@@ -162,7 +166,61 @@ public class Cliente extends Usuario{
     
     
     public void reservarTransporte(){
-        
+        boolean condicion = false;
+        while(!condicion){
+            System.out.print("Ingrese la fecha de inicio de reserva del vehículo: ");
+            String FechaInicio = sc.nextLine();
+            System.out.print("Ingrese la fecha de fin de reserva del vehículo: ");
+            String FechaFin = sc.nextLine();
+            System.out.print("Ingrese la capacidad del vehículo: ");
+            String capacidad = sc.nextLine();
+            ArrayList<String> vehiculos = ManejoArchivos.LeeFichero("vehiculos.txt");
+            System.out.println("---------------Vehículos Disponibles----------------");
+            for(int i=1; i<vehiculos.size();i++){
+                if(capacidad.equals(vehiculos.get(i).split(",")[5]) && Estado.DISPONIBLE.toString().equals((vehiculos.get(i).split(",")[6]))){ 
+                   System.out.println(i+")"+vehiculos.get(i).replace(",","|"));
+                }
+            }
+            
+            System.out.println("Escoja el literal deseado: ");
+            int opcion = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Usted ha escogido el vehiculo: "+ vehiculos.get(opcion));
+            System.out.println("¿Desea Reservar?\n1) Si\n2) No\nSeleccione una opcion:");
+            int op = sc.nextInt();
+            sc.nextLine();
+            //Creacion del reservasTransporte.txt
+            ManejoArchivos.EscribirArchivo("reservasTransporte.txt", "numeroReserva,códigoVehiculo,valorPagar");
+            if(op==1){
+                numeroReserva+=1;
+                String codigoV = vehiculos.get(opcion).split(",")[0];
+                String valorxdia = vehiculos.get(opcion).split(",")[7];
+                ManejoArchivos.EscribirArchivo("reservasTransporte.txt", numeroReserva+","+codigoV+","+valorxdia);
+                double valorxdia_conv = Double.parseDouble(valorxdia);
+                System.out.println("/************RESERVA GENERADA****************/\n/*                                          */\n/********************************************/");
+                Vehiculo v1 = new Vehiculo(codigoV,"","","","",0,Estado.DISPONIBLE,valorxdia_conv,TransmisionV.MANUAL,"",0.0,0,"");
+                v1.mostrarDatosReserva();
+              
+                
+                ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()+","+"transporte"+","+nombre+" "+apellido+","+FechaInicio+","+FechaFin+","+valorxdia);
+                
+                //Volver a reservar
+                System.out.println("¿Desea reservar otro vehículo?");
+                System.out.print("1) Si\n2) No\nSeleccione una opcion:");
+                int otraReserva = sc.nextInt();
+                if(otraReserva==2){
+                    //Finalizar la reserva
+                    condicion = true;
+                    
+                }
+                
+            }
+            else{
+                //Regresar al menú principal
+            }
+            
+            
+        }
     }
     public void ReservarEntretenimiento(){
         
