@@ -1,3 +1,7 @@
-numeroReserva,numeroPago,cliente,fechaPago,valorPagar,valorPagarFinal,tipoPago,numero,(mes/año)caducidad0,1,Juan Torres,2022-07-05,0.0,0.0,TARJETA,21252369853125,(2023/05)
+numeroReserva,numeroPago,cliente,fechaPago,valorPagar,valorPagarFinal,tipoPago,numero,(mes/año)caducidad
+0,1,Juan Torres,2022-07-05,0.0,0.0,TARJETA,21252369853125,(2023/05)
 0,1,Luis Mancero,2022-07-05,150.00,165.0,TARJETA,21252369853125,(2023/05)
 1,1,Luis Mancero,2022-07-05,150.00,142.5,TARJETA,21252369853125,(2023/05)
+1,1,Luis Mancero,2022-07-05,150.00,142.5,CHEQUE,21252369853125,2022-07-06
+34,1,Luis Mancero,2022-07-05,59.98,56.98,CHEQUE,21252369853125,2022-07-06
+1,1,Luis Mancero,2022-07-06,150.00,142.5,CHEQUE,21252369853125,2022-07-07

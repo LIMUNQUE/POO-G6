@@ -47,6 +47,9 @@ public class Cliente extends Usuario{
     }
     
     public void reservarHospedaje(){
+        System.out.println("/****************RESERVACION*****************/"
+                       + "\n/*                                          */"
+                       + "\n/********************************************/");
         boolean condition=false;
         while(!condition){
             System.out.println("MM/dd/yyyy");
@@ -168,6 +171,9 @@ public class Cliente extends Usuario{
     
     
     public void reservarTransporte(){
+        System.out.println("/****************RESERVACION*****************/"
+                       + "\n/*                                          */"
+                       + "\n/********************************************/");
         boolean condicion = false;
         while(!condicion){
             System.out.print("Ingrese la fecha de inicio de reserva del vehículo: ");
@@ -227,8 +233,10 @@ public class Cliente extends Usuario{
     }
     
     public void ReservarEntretenimiento(){
+        System.out.println("/****************RESERVACION*****************/"
+                       + "\n/*                                          */"
+                       + "\n/********************************************/");
         boolean condicion = false;
-        
         while(!condicion){
         System.out.print("Ingrese el nombre de la ciudad donde se alojará: ");
         String ciudadEnt = sc.nextLine();
@@ -296,7 +304,9 @@ public class Cliente extends Usuario{
     
     
     public double PagarReserva(String nT_credito, String anio_venc, String mes_venc){
-        
+        System.out.println("/**************PAGO DE RESERVA***************/"
+                       + "\n/*                                          */"
+                       + "\n/********************************************/");      
         System.out.print("Ingrese el código de la reserva: ");
         String codigoReserva = sc.nextLine();
         ArrayList<String> reservas = ManejoArchivos.LeeFichero("reservas.txt");
@@ -334,6 +344,7 @@ public class Cliente extends Usuario{
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
                             + "\n2) No");
+                    System.out.println("Ingrese una opcion");
                     int opcionpago = sc.nextInt();
                     sc.nextLine();
                     if(opcionpago == 1){
@@ -350,7 +361,6 @@ public class Cliente extends Usuario{
                     }  
                     }
             }else{
-                System.out.println("El código de reserva que ingresó no existe.");
                 //Retornar al menú principal.
             }
         }
@@ -359,15 +369,79 @@ public class Cliente extends Usuario{
     
     
     public double PagarReserva(String n_cheque){
-        double descuento = 0.15; 
-        double valorPagar = 0;
-        
-        if(tipoCliente == TipoCliente.C){
-            
+        System.out.println("/**************PAGO DE RESERVA***************/"
+                       + "\n/*                                          */"
+                       + "\n/********************************************/"); 
+        System.out.print("Ingrese el código de la reserva: ");
+        String codigoReserva = sc.nextLine();
+        ArrayList<String> reservas = ManejoArchivos.LeeFichero("reservas.txt");
+        for(int i = 1;i<reservas.size();i++){
+            if(reservas.get(i).split(",")[0].equals(codigoReserva)){
+                if (tipoCliente == TipoCliente.C){
+                    String valorPagar = reservas.get(i).split(",")[6];
+                    double valorPagar_conv = Double.parseDouble(valorPagar);
+                    double valorTotalPagar = valorPagar_conv+(valorPagar_conv*0.10);
+                    numeroPago = numeroPago+1;
+                    System.out.println("¿Desea confirmar el pago?"
+                            + "\n1) Si"
+                            + "\n2) No");
+                    int opcionpago = sc.nextInt();
+                    sc.nextLine();
+                    if(opcionpago == 1){
+                        LocalDate fechaActual = LocalDate.now();
+                        LocalDate fechaCaducidad = fechaActual.plusDays(1);
+                        
+                        System.out.println("El costo total del pago es: "+valorTotalPagar);
+
+                        ManejoArchivos.EscribirArchivo("pagos.txt",reservas.get(i).split(",")[0]+","
+                        +numeroPago+","+nombre+" "+apellido+","+fechaActual+","
+                        +valorPagar+","+valorTotalPagar+",CHEQUE,"+nT_credito+","
+                        +fechaCaducidad); 
+                        
+                        System.out.println("AVISO: Debe depositar el cheque en las proximas 24 horas o"
+                        + " de lo contrario su pago no será válido y la reserva no será considerada.");                      
+                        }
+                    else{
+                        //Regresar al menú principal
+                        }    
+                }
+                else{
+                    String valorPagar = reservas.get(i).split(",")[6];
+                    double valorPagar_conv = Double.parseDouble(valorPagar);
+                    double descuento = valorPagar_conv*0.15;
+                    double valorTotalPagar = (valorPagar_conv+(valorPagar_conv*0.10))-descuento;
+                    numeroPago = numeroPago+1;
+                    System.out.println("¿Desea confirmar el pago?"
+                            + "\n1) Si"
+                            + "\n2) No");
+                    System.out.print("Ingrese una opcion: ");
+                    int opcionpago = sc.nextInt();
+                    sc.nextLine();
+                    if(opcionpago == 1){
+                        LocalDate fechaActual = LocalDate.now();
+                        LocalDate fechaCaducidad = fechaActual.plusDays(1);
+                        System.out.println("El costo total del pago es: "+valorTotalPagar);
+
+                        ManejoArchivos.EscribirArchivo("pagos.txt",reservas.get(i).split(",")[0]+","
+                        +numeroPago+","+nombre+" "+apellido+","+fechaActual+","
+                        +valorPagar+","+valorTotalPagar+",CHEQUE,"+nT_credito+","
+                        +fechaCaducidad); 
+                        
+                        System.out.println("AVISO: Debe depositar el cheque en las proximas 24 horas o"
+                        + " de lo contrario su pago no será válido y la reserva no será considerada.");
+                    }
+                    else{
+                        //Retornar al menu principal
+                    }                  
+                } 
+            }
+            else{
+                //Retornar al menú principal.
+            }   
         }
-        
         return 0.1f;
     }
+        
     
     private void mostrarInformacion(String[] informacion){
         //código,Costo,nombre,rating,dirección,incluye desayuno,incluye parqueo,permite cancelación gratis
