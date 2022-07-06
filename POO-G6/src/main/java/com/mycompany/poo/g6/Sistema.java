@@ -28,6 +28,7 @@ public class Sistema {
                 String[] datosC = clientes.get(x).split(",");
 
                 int edad = Integer.parseInt(datosC[1]);
+                
                 if (datosU[0].equals(datosC[0])) {
                     if (TipoCliente.valueOf(datosU[6]) == TipoCliente.C || TipoCliente.valueOf(datosU[6]) == TipoCliente.V) {
 
@@ -76,6 +77,45 @@ public class Sistema {
                                 Cliente c = (Cliente) s.usuarios.get(i);
                                 if (c.getTipoCliente().equals(TipoCliente.C)) {
                                     System.out.println("Bienvenido " + c.getNombre() + " " + c.getApellido() + " cliente estándar.");
+                                    System.out.println("1. Reservar hospedaje");
+                                    System.out.println("2. Reservar transporte");
+                                    System.out.println("3. Reservar entretenimiento");
+                                    System.out.println("4. Pagar Reserva");
+                                    System.out.println("5. Consultar reservas");
+                                    System.out.println("5. Salir");
+                                    System.out.print("Ingrese el número de su opción: ");
+                                    String op = sc.nextLine();
+                                    switch (op){
+                                        case "1":
+                                            c.reservarHospedaje();
+                                            break;
+                                        case "2":
+                                            c.reservarTransporte();
+                                            break;
+                                        case "3":
+                                            c.ReservarEntretenimiento();
+                                            break;
+                                        case "4":
+                                            System.out.println("¿Desea pagar con tarjeta de crédito o cheque?");
+                                            String pago = sc.nextLine();
+                                            if (pago.equals("cheque")){
+                                                System.out.print("Ingrese el número de cheque: ");
+                                                int cheque = sc.nextInt();
+                                                sc.nextLine();
+                                                c.PagarReserva(cheque);
+                                            } else {
+                                                System.out.print("Ingrese su número de trajeta: ");
+                                                String nt = sc.nextLine();
+                                                System.out.print("Ingrese año de vencimiento: ");
+                                                int anioV = sc.nextInt();
+                                                sc.nextLine();
+                                                System.out.print("Ingrese mes de vencimiento: ");
+                                                int mesV = sc.nextInt();
+                                                sc.nextLine();
+                                                c.PagarReserva(nt,anioV,mesV);
+                                            }
+                                            
+                                    }
                                     break;
                                 } else if (c.getTipoCliente().equals(TipoCliente.V)) {
                                     System.out.println("Bienvenido " + c.getNombre() + " " + c.getApellido() + " cliente VIP.");
