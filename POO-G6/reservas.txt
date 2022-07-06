@@ -1,1 +1,2 @@
-numeroReserva, fecha, tipo, nombre, costo
+numeroReserva,fecha reserva,tipoReserva,nombreCliente,desde,hasta,valorPagar
+1,2022-07-05,transporte,Luis Mancero,12/05/2022,13/05/2022,150.00
