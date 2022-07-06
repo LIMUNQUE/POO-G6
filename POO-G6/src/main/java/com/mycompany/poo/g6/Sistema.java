@@ -100,18 +100,15 @@ public class Sistema {
                                             String pago = sc.nextLine();
                                             if (pago.equals("cheque")){
                                                 System.out.print("Ingrese el número de cheque: ");
-                                                int cheque = sc.nextInt();
-                                                sc.nextLine();
+                                                String cheque = sc.nextLine();
                                                 c.PagarReserva(cheque);
                                             } else {
                                                 System.out.print("Ingrese su número de trajeta: ");
                                                 String nt = sc.nextLine();
                                                 System.out.print("Ingrese año de vencimiento: ");
-                                                int anioV = sc.nextInt();
-                                                sc.nextLine();
+                                                String anioV = sc.nextLine();
                                                 System.out.print("Ingrese mes de vencimiento: ");
-                                                int mesV = sc.nextInt();
-                                                sc.nextLine();
+                                                String mesV = sc.nextLine();
                                                 c.PagarReserva(nt,anioV,mesV);
                                             }
                                             
