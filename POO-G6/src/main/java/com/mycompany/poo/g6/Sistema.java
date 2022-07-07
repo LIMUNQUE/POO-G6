@@ -15,10 +15,13 @@ import java.util.ArrayList;
  */
 public class Sistema {
 
-    private ArrayList<Usuario> usuarios;
+    
 
-    public void cargarSistema() {
-        ArrayList<String> usuarios1 = ManejoArchivos.LeeFichero("usuarios.txt");
+    public static void main(String[] args) {
+        
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        
+         ArrayList<String> usuarios1 = ManejoArchivos.LeeFichero("usuarios.txt");
         ArrayList<String> clientes = ManejoArchivos.LeeFichero("clientes.txt");
 
         for (int i = 1; i < usuarios1.size(); i++) {
@@ -39,15 +42,8 @@ public class Sistema {
 
             }
         }
-    }
 
-    
-
-    public static void main(String[] args) {
-
-        Sistema s = new Sistema();
-        s.usuarios = new ArrayList<>();
-        s.cargarSistema();
+        
 
         Scanner sc = new Scanner(System.in);
 
@@ -71,11 +67,11 @@ public class Sistema {
                     System.out.print("Ingrese su contraseña: ");
                     String contrasenia = sc.nextLine();
 
-                    for (int i = 0; i < s.usuarios.size(); i++) {
-                        if (s.usuarios.get(i).getNombreUsuario().equals(user) && s.usuarios.get(i).getContrasenia().equals(contrasenia)) {
-                            if (s.usuarios.get(i) instanceof Cliente) {
-                                Cliente c = (Cliente) s.usuarios.get(i);
-                                if (c.getTipoCliente().equals(TipoCliente.C)) {
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        if (usuarios.get(i).getNombreUsuario().equals(user) && usuarios.get(i).getContrasenia().equals(contrasenia)) {
+                            if (usuarios.get(i) instanceof Cliente) {
+                                Cliente c = (Cliente) usuarios.get(i);
+                                if (c.getTipoCliente().equals(TipoCliente.C) || c.getTipoCliente().equals(TipoCliente.V)) {
                                     System.out.println("Bienvenido " + c.getNombre() + " " + c.getApellido() + " cliente estándar.");
                                     System.out.println("1. Reservar hospedaje");
                                     System.out.println("2. Reservar transporte");
@@ -111,15 +107,11 @@ public class Sistema {
                                                 String mesV = sc.nextLine();
                                                 c.PagarReserva(nt,anioV,mesV);
                                             }
-                                            
                                     }
                                     break;
-                                } else if (c.getTipoCliente().equals(TipoCliente.V)) {
-                                    System.out.println("Bienvenido " + c.getNombre() + " " + c.getApellido() + " cliente VIP.");
-                                    break;
                                 }
-                            } else if (s.usuarios.get(i) instanceof Administrador) {
-                                Administrador a = (Administrador) s.usuarios.get(i);
+                            } else if (usuarios.get(i) instanceof Administrador) {
+                                Administrador a = (Administrador) usuarios.get(i);
                                 System.out.println("Bienvenido administrador" + a.getNombre() + " " + a.getApellido() + ".");
                                 break;
                             }
@@ -158,7 +150,7 @@ public class Sistema {
                 String linea1 =  nCedula + "," + edad + "," + nTCredito + "\n";
                 ManejoArchivos.EscribirArchivo("usuarios.txt", linea);
                 ManejoArchivos.EscribirArchivo("clientes.txt", linea1);
-                if(s.usuarios.add(new Cliente(nCedula,nombre,apellido,nUsuario,contrasenia,TipoCliente.valueOf(tipoCliente),Integer.parseInt(edad),nTCredito))){
+                if(usuarios.add(new Cliente(nCedula,nombre,apellido,nUsuario,contrasenia,TipoCliente.valueOf(tipoCliente),Integer.parseInt(edad),nTCredito))){
                     System.out.println("Se registró su usuario con éxito");
                 }
                 
