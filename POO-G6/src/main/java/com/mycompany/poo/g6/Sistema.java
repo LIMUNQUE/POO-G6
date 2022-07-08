@@ -11,12 +11,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Joshua
+ * @author Gerson
  */
 public class Sistema {
 
     
-
     public static void main(String[] args) {
         
         ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -34,12 +33,11 @@ public class Sistema {
                 
                 if (datosU[0].equals(datosC[0])) {
                     if (TipoCliente.valueOf(datosU[6]) == TipoCliente.C || TipoCliente.valueOf(datosU[6]) == TipoCliente.V) {
-
                         usuarios.add(new Cliente(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], TipoCliente.valueOf(datosU[6]), edad, datosC[2]));
-
+                    }else{
+                        usuarios.add(new Administrador(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4]));
                     }
                 }
-
             }
         }
 
@@ -113,6 +111,16 @@ public class Sistema {
                             } else if (usuarios.get(i) instanceof Administrador) {
                                 Administrador a = (Administrador) usuarios.get(i);
                                 System.out.println("Bienvenido administrador" + a.getNombre() + " " + a.getApellido() + ".");
+                                System.out.println("1. Consultar Reservas");
+                                System.out.println("2. Salir");
+                                String op = sc.nextLine();
+                                switch (op){
+                                    case "1":
+                                        a.consultarReserva();
+                                        break;
+                                    case "2":
+                                        break;
+                                }
                                 break;
                             }
                         } else {

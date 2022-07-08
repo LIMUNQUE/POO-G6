@@ -6,16 +6,27 @@ package PCliente;
 
 /**
  *
- * @author Joshua
+ * @author Gerson
  */
 public class Administrador extends Usuario{
+    
+    /**
+     * Administrador recibe primero el # de cédula luego el nombre, apellido, usuario, y contraseña.
+     * @param nCedula
+     * @param nombre
+     * @param apellido
+     * @param nombreUsuario
+     * @param contrasenia 
+     */
     
     public Administrador(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia){
         super(nCedula, nombre, apellido, nombreUsuario, contrasenia);
     }
     
     public void consultarReserva(){
-        
+        System.out.println("/****************Resumen de Servicios Reservados*****************/"
+                       + "\n/*                                                              */"
+                       + "\n/****************************************************************/");
     }
     
 }
