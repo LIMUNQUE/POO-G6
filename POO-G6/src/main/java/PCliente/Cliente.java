@@ -44,6 +44,39 @@ public class Cliente extends Usuario{
     
 
     public void consultarReserva(){
+        System.out.println("/*************SERVICIOS RESERVADOS*************/");
+        System.out.println("/*                                            */");
+        System.out.println("/**********************************************/");
+        System.out.println();
+        
+        //Parte que se repite
+        
+        ArrayList<String> reservas = ManejoArchivos.LeeFichero("reservas.txt");
+        for(int i=1; i<reservas.size();i++){
+            String[] informacion = reservas.get(i).split(",");
+            if(informacion[3].equals(nombre+" "+apellido)){
+                System.out.println("Servicio: "+informacion[2]);
+                if(informacion[2].toLowerCase().equals("entretenimiento")){
+                    System.out.print("Paquete: ");
+                }
+                if(informacion[2].toLowerCase().equals("transporte")){
+                    System.out.print("Vehículo: ");
+                }
+                if(informacion[2].toLowerCase().equals("hospedaje")){
+                    System.out.print("Hotel: ");
+                }
+                System.out.println("Caracteristica");
+                System.out.println("Fecha Reserva: "+ informacion[1]);
+                System.out.println("Desde: "+ informacion[4]);
+                System.out.println("Hasta: "+ informacion[5]);
+                System.out.println("Pago: "+ informacion[6]);
+                
+                System.out.println("/**********************************************/");
+                System.out.println();
+            }
+        }
+        
+        
     }
     
     public void reservarHospedaje(){
@@ -120,7 +153,7 @@ public class Cliente extends Usuario{
                         System.out.println("Reserva realizada :)");
                         condition = true;
                         int numeroReserva = Reserva.aumentarContReserva();
-                        String registro =String.format("%b,%s,Hotel,%s,%f%n", numeroReserva,LocalDate.now(),nombre,(Float.parseFloat(habitacionRandom[2])*dd.toDays()));
+                        String registro =String.format("%d,%s,Hospedaje,%s,%s,%s,%f,%s%n", numeroReserva,LocalDate.now(),nombre+" "+apellido,fEntrada,fSalida,(Float.parseFloat(habitacionRandom[2])*dd.toDays()),informacion[4]);
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
                     }
                     //else MandarAlMenu()
