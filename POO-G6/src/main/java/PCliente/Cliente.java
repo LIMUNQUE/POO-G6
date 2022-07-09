@@ -8,6 +8,8 @@ import Enums.TipoCliente;
 import Enums.TransmisionV;
 import PServicios.Entretenimiento;
 import PServicios.Vehiculo;
+import com.mycompany.poo.g6.Pago;
+import com.mycompany.poo.g6.Reserva;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,8 +21,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Cliente extends Usuario{
     private Scanner sc = new Scanner(System.in);
-    private static int numeroReserva = 0;
-    private static int numeroPago = 0;
     private TipoCliente tipoCliente;
     private int edad;
     private String nT_credito;
@@ -47,6 +47,7 @@ public class Cliente extends Usuario{
     }
     
     public void reservarHospedaje(){
+        Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
                        + "\n/*                                          */"
                        + "\n/********************************************/");
@@ -118,7 +119,7 @@ public class Cliente extends Usuario{
                     if(resp.toLowerCase().equals("si")){
                         System.out.println("Reserva realizada :)");
                         condition = true;
-                        numeroReserva=numeroReserva+1;
+                        int numeroReserva = Reserva.aumentarContReserva();
                         String registro =String.format("%b,%s,Hotel,%s,%f%n", numeroReserva,LocalDate.now(),nombre,(Float.parseFloat(habitacionRandom[2])*dd.toDays()));
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
                     }
@@ -153,7 +154,7 @@ public class Cliente extends Usuario{
                 String resp = sc.nextLine();
                 if(resp.toLowerCase().equals("si")){
                         condition = true;
-                        numeroReserva=numeroReserva+1;
+                        int numeroReserva = Reserva.aumentarContReserva();
                         String registro =String.format("%b,%s,Departamento,%s,%s%n", numeroReserva,LocalDate.now(),nombre,informacion[1]);
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
                         
@@ -171,11 +172,13 @@ public class Cliente extends Usuario{
     
     
     public void reservarTransporte(){
+        Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
                        + "\n/*                                          */"
                        + "\n/********************************************/");
         boolean condicion = false;
         while(!condicion){
+            System.out.println("Ingrese fecha en formato yyyy-mm-dd");
             System.out.print("Ingrese la fecha de inicio de reserva del vehículo: ");
             String FechaInicio = sc.nextLine();
             System.out.print("Ingrese la fecha de fin de reserva del vehículo: ");
@@ -198,19 +201,27 @@ public class Cliente extends Usuario{
             int op = sc.nextInt();
             sc.nextLine();
             //Creacion del reservasTransporte.txt
-            ManejoArchivos.EscribirArchivo("reservasTransporte.txt", "numeroReserva,códigoVehiculo,valorPagar");
             if(op==1){
-                numeroReserva+=1;
+                int numeroReserva = Reserva.aumentarContReserva();
                 String codigoV = vehiculos.get(opcion).split(",")[0];
                 String valorxdia = vehiculos.get(opcion).split(",")[7];
-                ManejoArchivos.EscribirArchivo("reservasTransporte.txt", numeroReserva+","+codigoV+","+valorxdia);
+                String ciudad = vehiculos.get(opcion).split(",")[9];
+                
+                LocalDate fechaIni = LocalDate.parse(FechaInicio);
+                LocalDate fechaFin = LocalDate.parse(FechaFin);
+                int diasOcupacion = fechaFin.getDayOfYear() - fechaIni.getDayOfYear();    
                 double valorxdia_conv = Double.parseDouble(valorxdia);
+                double valorTotal = diasOcupacion*valorxdia_conv;
+                
                 System.out.println("/************RESERVA GENERADA****************/\n/*                                          */\n/********************************************/");
-                Vehiculo v1 = new Vehiculo(codigoV,"","","","",0,Estado.DISPONIBLE,valorxdia_conv,TransmisionV.MANUAL,"",0.0,0,"");
+                Vehiculo v1 = new Vehiculo(codigoV,"","","","",0,Estado.DISPONIBLE,
+                        valorxdia_conv,TransmisionV.MANUAL,String.valueOf(numeroReserva),valorTotal,0,ciudad);
                 v1.mostrarDatosReserva();
               
-                
-                ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()+","+"transporte"+","+nombre+" "+apellido+","+FechaInicio+","+FechaFin+","+valorxdia);
+                ManejoArchivos.EscribirArchivo("reservasTransporte.txt", numeroReserva+","+codigoV+","+valorTotal);
+                ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()+","+
+                        "transporte"+","+nombre+" "+apellido+","+FechaInicio+","+FechaFin+","+valorTotal+
+                        ","+ciudad);
                 
                 //Volver a reservar
                 System.out.println("¿Desea reservar otro vehículo?");
@@ -233,6 +244,7 @@ public class Cliente extends Usuario{
     }
     
     public void ReservarEntretenimiento(){
+        Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
                        + "\n/*                                          */"
                        + "\n/********************************************/");
@@ -277,15 +289,19 @@ public class Cliente extends Usuario{
             System.out.println("/************RESERVA GENERADA****************/"
                         + "\n/*                                          */"
                         + "\n/********************************************/");
-            numeroReserva = numeroReserva+1;
+            int numeroReserva = Reserva.aumentarContReserva();
             String FechaInicio_Fin = entretenimientos.get(opcion).split(";")[5];
             String costo_persona = entretenimientos.get(opcion).split(";")[3];
             double costo_persona_conv =Double.parseDouble(costo_persona);
             double ValorPagar = numero_persona * costo_persona_conv;
             
-            Entretenimiento e = new Entretenimiento(FechaInicio_Fin,entretenimientos.get(opcion).split(";")[1],Estado.DISPONIBLE,"",ValorPagar,0,ciudadEnt);
+            Entretenimiento e = new Entretenimiento(FechaInicio_Fin,
+                    entretenimientos.get(opcion).split(";")[1],Estado.DISPONIBLE,
+                    String.valueOf(numeroReserva),ValorPagar,0,ciudadEnt);
             e.mostrarDatosReserva();
-            ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()+",entretenimiento,"+nombre+" "+ apellido+","+FechaInicio_Fin+","+FechaInicio_Fin+","+ValorPagar);
+            ManejoArchivos.EscribirArchivo("reservas.txt", numeroReserva+","+LocalDate.now()
+                    +",entretenimiento,"+nombre+" "+ apellido+","+FechaInicio_Fin+","
+                    +FechaInicio_Fin+","+ValorPagar+","+ciudadEnt);
         }
         System.out.println("¿Desea reservar otro paquete de entretenimiento?");
                 System.out.print("1) Si\n2) No\nSeleccione una opcion:");
@@ -304,6 +320,7 @@ public class Cliente extends Usuario{
     
     
     public double PagarReserva(String nT_credito, String anio_venc, String mes_venc){
+        Pago.actualizarContPago();
         System.out.println("/**************PAGO DE RESERVA***************/"
                        + "\n/*                                          */"
                        + "\n/********************************************/");      
@@ -316,7 +333,7 @@ public class Cliente extends Usuario{
                     String valorPagar = reservas.get(i).split(",")[6];
                     double valorPagar_conv = Double.parseDouble(valorPagar);
                     double valorTotalPagar = valorPagar_conv+(valorPagar_conv*0.10);
-                    numeroPago = numeroPago+1;
+                    int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
                             + "\n2) No");
@@ -340,7 +357,7 @@ public class Cliente extends Usuario{
                     double valorPagar_conv = Double.parseDouble(valorPagar);
                     double descuento = valorPagar_conv*0.15;
                     double valorTotalPagar = (valorPagar_conv+(valorPagar_conv*0.10))-descuento;
-                    numeroPago = numeroPago+1;
+                    int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
                             + "\n2) No");
@@ -369,6 +386,7 @@ public class Cliente extends Usuario{
     
     
     public double PagarReserva(String n_cheque){
+        Pago.actualizarContPago();
         System.out.println("/**************PAGO DE RESERVA***************/"
                        + "\n/*                                          */"
                        + "\n/********************************************/"); 
@@ -381,7 +399,7 @@ public class Cliente extends Usuario{
                     String valorPagar = reservas.get(i).split(",")[6];
                     double valorPagar_conv = Double.parseDouble(valorPagar);
                     double valorTotalPagar = valorPagar_conv+(valorPagar_conv*0.10);
-                    numeroPago = numeroPago+1;
+                    int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
                             + "\n2) No");
@@ -410,7 +428,7 @@ public class Cliente extends Usuario{
                     double valorPagar_conv = Double.parseDouble(valorPagar);
                     double descuento = valorPagar_conv*0.15;
                     double valorTotalPagar = (valorPagar_conv+(valorPagar_conv*0.10))-descuento;
-                    numeroPago = numeroPago+1;
+                    int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
                             + "\n2) No");

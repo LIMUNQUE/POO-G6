@@ -6,6 +6,8 @@ package com.mycompany.poo.g6;
 import Enums.TipoCliente;
 import PServicios.Servicio;
 import PCliente.Cliente;
+import PCliente.ManejoArchivos;
+import java.util.ArrayList;
 /**
  *
  * @author Gerson
@@ -15,8 +17,8 @@ public class Reserva {
     private String fecha;
     private Servicio tServicio;
     private TipoCliente cliente;
-    private int contReserva;
-    
+    protected static int contReserva;
+
     public void setnReserva(String nReserva){
         this.nReserva=nReserva;
     }
@@ -49,12 +51,18 @@ public class Reserva {
         return cliente;
     }
     
-    public void setContReserva(int reserva){
-        this.contReserva=reserva;
+    public static int aumentarContReserva(){
+        contReserva+=1;
+        return contReserva;
     }
     
-    public int getContReserva(){
-        return contReserva;
+    public static void actualizarReserva(){
+        ArrayList<String> reservas= ManejoArchivos.LeeFichero("reservas.txt");
+        for(int i=1;i<reservas.size();i++){
+            if(!reservas.get(i).split(",")[0].equals("")){
+                contReserva = Integer.parseInt(reservas.get(i).split(",")[0]);
+            }
+        }
     }
     
 }

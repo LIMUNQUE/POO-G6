@@ -1,2 +1,4 @@
-códigoVehículo,marca,modelo,placa,color,capacidad,estado,costo por día,tipo transmision
-9273,Hyundai,Creta,GJH-372,PLATA,5,DISPONIBLE,150.00,MANUAL
+códigoVehículo,marca,modelo,placa,color,capacidad,estado,costo por día,tipo transmision,ciudad
+9273,Hyundai,Creta,GJH-372,PLATA,5,DISPONIBLE,150.00,MANUAL,Cuenca
+9198,Chevrolet,Onyx,GIA-372,NEGRO,5,DISPONIBLE,160.00,MANUAL,Guayaquil
+8975,Hyundai,Creta,GJH-173,ROJO,5,DISPONIBLE,150.00,AUTOMATICO,Salinas

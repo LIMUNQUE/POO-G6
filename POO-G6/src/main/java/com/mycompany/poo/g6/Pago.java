@@ -4,6 +4,9 @@
  */
 package com.mycompany.poo.g6;
 
+import PCliente.ManejoArchivos;
+import java.util.ArrayList;
+
 /**
  *
  * @author Gerson
@@ -13,6 +16,7 @@ public class Pago {
     private double valorPagar;
     private String fechaPago;
     private double cancReserva;
+    protected static int contPago;
 
     public String getIdPago() {
         return idPago;
@@ -46,6 +50,19 @@ public class Pago {
         this.cancReserva = cancReserva;
     }
     
+    public static int aumentarContPago(){
+        contPago +=1;
+        return contPago;
+    }
+    
+    public static void actualizarContPago(){
+        ArrayList<String> pagos = ManejoArchivos.LeeFichero("pagos.txt");
+        for(int i=1;i<pagos.size();i++){
+            if(pagos.get(i).split(",")[1].equals("")){
+                contPago = Integer.parseInt(pagos.get(i).split(",")[1]);
+            }
+        }
+    }
     
     
 }
