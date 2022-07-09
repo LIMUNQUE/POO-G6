@@ -19,8 +19,8 @@ public class Administrador extends Usuario{
      * @param contrasenia 
      */
     
-    public Administrador(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia){
-        super(nCedula, nombre, apellido, nombreUsuario, contrasenia);
+    public Administrador(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular){
+        super(nCedula, nombre, apellido, nombreUsuario, contrasenia, nCelular);
     }
     
     public void consultarReserva(){

@@ -33,9 +33,9 @@ public class Sistema {
                 
                 if (datosU[0].equals(datosC[0])) {
                     if (TipoCliente.valueOf(datosU[6]) == TipoCliente.C || TipoCliente.valueOf(datosU[6]) == TipoCliente.V) {
-                        usuarios.add(new Cliente(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], TipoCliente.valueOf(datosU[6]), edad, datosC[2]));
+                        usuarios.add(new Cliente(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5],TipoCliente.valueOf(datosU[6]), edad, datosC[2]));
                     }else{
-                        usuarios.add(new Administrador(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4]));
+                        usuarios.add(new Administrador(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5]));
                     }
                 }
             }
@@ -158,7 +158,7 @@ public class Sistema {
                 String linea1 =  nCedula + "," + edad + "," + nTCredito + "\n";
                 ManejoArchivos.EscribirArchivo("usuarios.txt", linea);
                 ManejoArchivos.EscribirArchivo("clientes.txt", linea1);
-                if(usuarios.add(new Cliente(nCedula,nombre,apellido,nUsuario,contrasenia,TipoCliente.valueOf(tipoCliente),Integer.parseInt(edad),nTCredito))){
+                if(usuarios.add(new Cliente(nCedula,nombre,apellido,nUsuario,contrasenia,celular,TipoCliente.valueOf(tipoCliente),Integer.parseInt(edad),nTCredito))){
                     System.out.println("Se registró su usuario con éxito");
                 }
                 

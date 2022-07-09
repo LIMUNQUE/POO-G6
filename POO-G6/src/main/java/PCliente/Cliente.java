@@ -25,8 +25,8 @@ public class Cliente extends Usuario{
     private int edad;
     private String nT_credito;
     
-    public Cliente(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, TipoCliente tipoCliente, int edad, String nT_credito){
-        super(nCedula, nombre, apellido, nombreUsuario, contrasenia);
+    public Cliente(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular, TipoCliente tipoCliente, int edad, String nT_credito){
+        super(nCedula, nombre, apellido, nombreUsuario, contrasenia, nCelular);
         this.tipoCliente =tipoCliente;
         this.edad = edad;
         this.nT_credito = nT_credito;

@@ -12,7 +12,7 @@ import Enums.TipoCliente;
  */
 public class POOG6 {
 public static void main(String[] args) {
-       Cliente cl1 = new Cliente("0923547362","Juan","Lopez","lmancero","qwerty",TipoCliente.C,20,"21252369853125");
+       Cliente cl1 = new Cliente("0923547362","Juan","Lopez","lmancero","qwerty","46518648",TipoCliente.C,20,"21252369853125");
        
        cl1.reservarHospedaje();
        

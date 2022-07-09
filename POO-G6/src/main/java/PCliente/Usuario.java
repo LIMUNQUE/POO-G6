@@ -15,13 +15,15 @@ public abstract class Usuario {
     protected String apellido;
     protected String nombreUsuario;
     protected String contrasenia;
+    protected String nCelular;
     
-    public Usuario(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia){
+    public Usuario(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular){
         this.nCedula = nCedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
+        this.nCelular = nCelular;
     }
     
     //Metodos getters
@@ -30,6 +32,7 @@ public abstract class Usuario {
     public String getApellido(){return apellido;}
     public String getNombreUsuario(){return nombreUsuario;}
     public String getContrasenia(){return contrasenia;}
+    public String getNCelular(){return nCelular;}
     
     //Metodos setters
     public void setNCedula(String nCedula){this.nCedula = nCedula;}
@@ -37,7 +40,7 @@ public abstract class Usuario {
     public void setApellido(String apellido){this.apellido = apellido;}
     public void setNombreUsuario(String nombreUsuario){this.nombreUsuario = nombreUsuario;}
     public void setContraseñia(String contrasenia){this.contrasenia = contrasenia;}
-    
+    public void setNCelular(){this.nCelular = nCelular;}
     
     public abstract void consultarReserva();
     
