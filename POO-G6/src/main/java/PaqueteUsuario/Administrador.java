@@ -71,5 +71,8 @@ public class Administrador extends Usuario{
         System.out.println("Reservas totales: "+sumandoR);
         
     }
-    
+    @Override
+    public String toString(){
+        return nombreUsuario + " " + contrasenia;
+    }
 }

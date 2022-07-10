@@ -17,36 +17,51 @@ import java.util.ArrayList;
  * @author Gerson
  */
 public class Sistema {
-
-    
     public static void main(String[] args) {
-        
+        Scanner sc = new Scanner(System.in);
         ArrayList<Usuario> usuarios = new ArrayList<>();
         
-         ArrayList<String> usuarios1 = ManejoArchivos.LeeFichero("usuarios.txt");
+        
+                
+        ArrayList<String> usuarios1 = ManejoArchivos.LeeFichero("usuarios.txt");
         ArrayList<String> clientes = ManejoArchivos.LeeFichero("clientes.txt");
-
-        for (int i = 1; i < usuarios1.size(); i++) {
-            for (int x = 1; x < clientes.size(); x++) {
-
+        
+        
+        for (int i = 1; i<usuarios1.size(); i++){
+            if (!usuarios1.get(i).split(",")[6].equals("A")) {
                 String[] datosU = usuarios1.get(i).split(",");
-                String[] datosC = clientes.get(x).split(",");
-
-                int edad = Integer.parseInt(datosC[1]);
-                
-                if (datosU[0].equals(datosC[0])) {
-                        usuarios.add(new Cliente(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5],TipoCliente.valueOf(datosU[6]), edad, datosC[2]));
-                    
-                }else{
-                        usuarios.add(new Administrador(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5]));
+                for (int j = 1; j<clientes.size(); j++) {
+                    String[] datosC = clientes.get(j).split(",");
+                    if (datosU[0].equals(datosC[0])) {
+                        usuarios.add(new Cliente(datosU[0],datosU[1],datosU[2],datosU[3],datosU[4],datosU[5],TipoCliente.valueOf(datosU[6]),Integer.parseInt(datosC[1]),datosC[2]));
                     }
-                
+                }
+            } else {
+                String[] datosU = usuarios1.get(i).split(",");
+                usuarios.add(new Administrador(datosU[0],datosU[1],datosU[2],datosU[3],datosU[4],datosU[5]));
             }
         }
-
         
+        System.out.println(usuarios);
+        
+//        System.out.print("Ingrese su usuario: ");
+//                    String user = sc.nextLine();
+//                    System.out.print("Ingrese su contraseña: ");
+//                    String contrasenia = sc.nextLine();
+//
+//                    for (int i = 0; i < usuarios.size(); i++) {
+//                        if (usuarios.get(i).getNombreUsuario().equals(user) && usuarios.get(i).getContrasenia().equals(contrasenia)) {
+//                            System.out.println("Si");
+//                        } else {
+//                            System.out.println("No");
+//                        }
+//                    }
 
-        Scanner sc = new Scanner(System.in);
+                            
+                            
+                            
+                            
+        
 
         System.out.println(""
                 + "+++++++++++++++++++++++++++++++++++++++++++++"
@@ -79,7 +94,7 @@ public class Sistema {
                                     System.out.println("3. Reservar entretenimiento");
                                     System.out.println("4. Pagar Reserva");
                                     System.out.println("5. Consultar reservas");
-                                    System.out.println("5. Salir");
+                                    System.out.println("6. Salir");
                                     System.out.print("Ingrese el número de su opción: ");
                                     String op = sc.nextLine();
                                     switch (op){
@@ -108,14 +123,19 @@ public class Sistema {
                                                 String mesV = sc.nextLine();
                                                 c.PagarReserva(nt,anioV,mesV);
                                             }
+                                            break;
+                                        case "5":
+                                            c.consultarReserva();
+                                        case "6":
+                                            break;
                                     }
-                                    break;
                                 }
                             } else if (usuarios.get(i) instanceof Administrador) {
                                 Administrador a = (Administrador) usuarios.get(i);
-                                System.out.println("Bienvenido administrador" + a.getNombre() + " " + a.getApellido() + ".");
+                                System.out.println("Bienvenido administrador " + a.getNombre() + " " + a.getApellido() + ".");
                                 System.out.println("1. Consultar Reservas");
                                 System.out.println("2. Salir");
+                                System.out.print("Ingrese su opción: ");
                                 String op = sc.nextLine();
                                 switch (op){
                                     case "1":
@@ -124,13 +144,10 @@ public class Sistema {
                                     case "2":
                                         break;
                                 }
-                                break;
                             }
-                        } else {
-                            System.out.println("Usuario no encontrado.");
-                            break;
                         }
                     }
+                    System.out.println("Usuario no encontrado");
                     System.out.println("¿Desea seguir intentando? S/N");
                     seguir = sc.nextLine();
                 }
@@ -164,6 +181,7 @@ public class Sistema {
                 if(usuarios.add(new Cliente(nCedula,nombre,apellido,nUsuario,contrasenia,celular,TipoCliente.valueOf(tipoCliente),Integer.parseInt(edad),nTCredito))){
                     System.out.println("Se registró su usuario con éxito");
                 }
+                break;
                 
             case "3":
                 System.out.println("Gracias por su atención.");
