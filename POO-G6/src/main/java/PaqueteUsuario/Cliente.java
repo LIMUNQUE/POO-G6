@@ -59,14 +59,23 @@ public class Cliente extends Usuario{
                 System.out.println("Servicio: "+informacion[2]);
                 if(informacion[2].toLowerCase().equals("entretenimiento")){
                     System.out.print("Paquete: ");
+                    System.out.println("null");
                 }
                 if(informacion[2].toLowerCase().equals("transporte")){
                     System.out.print("Vehículo: ");
+                    System.out.println("null");
                 }
                 if(informacion[2].toLowerCase().equals("hospedaje")){
                     System.out.print("Hotel: ");
+                    ArrayList<String> reserva = ManejoArchivos.LeeFichero("reservaHospedaje.txt");
+                    for(int j=1; j<reserva.size();j++){
+                        String[] informacionReserva = reserva.get(j).split(",");
+                        if(informacionReserva[0].equals(informacion[0])){
+                            if(informacionReserva[2].equals("Departamento")) System.out.println("Departamento");
+                            else System.out.println("Hotel");
+                        }
+                    }
                 }
-                System.out.println("Caracteristica");
                 System.out.println("Fecha Reserva: "+ informacion[1]);
                 System.out.println("Desde: "+ informacion[4]);
                 System.out.println("Hasta: "+ informacion[5]);
@@ -154,8 +163,10 @@ public class Cliente extends Usuario{
                         System.out.println("Reserva realizada :)");
                         condition = true;
                         int numeroReserva = Reserva.aumentarContReserva();
-                        String registro =String.format("%d,%s,Hospedaje,%s,%s,%s,%f,%s%n", numeroReserva,LocalDate.now(),nombre+" "+apellido,fEntrada,fSalida,(Float.parseFloat(habitacionRandom[2])*dd.toDays()),informacion[4]);
+                        String registro =String.format("%d,%s,Hospedaje,%s,%s,%s,%f,%s%n", numeroReserva,LocalDate.now(),nombre+" "+apellido,fEntrada,fSalida,(Float.parseFloat(habitacionRandom[2])*dd.toDays()),ciudad);
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
+                        registro = String.format("%d,%s,%s,%f,%n", numeroReserva,informacion[0],habitacionRandom[1],(Float.parseFloat(habitacionRandom[2])*dd.toDays()));
+                        ManejoArchivos.EscribirArchivo("reservaHospedaje.txt", registro);
                     }
                     //else MandarAlMenu()
                 }
@@ -189,8 +200,10 @@ public class Cliente extends Usuario{
                 if(resp.toLowerCase().equals("si")){
                         condition = true;
                         int numeroReserva = Reserva.aumentarContReserva();
-                        String registro =String.format("%b,%s,Departamento,%s,%s%n", numeroReserva,LocalDate.now(),nombre,informacion[1]);
+                        String registro =String.format("%d,%s,Hospedaje,%s,%s,%s,%f,%s%n", numeroReserva,LocalDate.now(),nombre+" "+apellido,fEntrada,fSalida,(Float.parseFloat(informacion[1])*dd.toDays()),ciudad);
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
+                        registro = String.format("%d,%s,Departamento,%f,%n", numeroReserva,informacion[0],(Float.parseFloat(informacion[1])*dd.toDays()));
+                        ManejoArchivos.EscribirArchivo("reservaHospedaje.txt", registro);
                         
                 }
                 //else mandarAlMenu();

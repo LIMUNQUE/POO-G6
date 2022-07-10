@@ -1,0 +1,3 @@
+numeroReserva, código, Tipo, valorPagar
+
+
