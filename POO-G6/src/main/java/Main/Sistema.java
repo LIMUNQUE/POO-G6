@@ -70,7 +70,7 @@ public class Sistema {
                             if (usuarios.get(i) instanceof Cliente) {
                                 Cliente c = (Cliente) usuarios.get(i);
                                 if (c.getTipoCliente().equals(TipoCliente.C) || c.getTipoCliente().equals(TipoCliente.V)) {
-                                    System.out.println("Bienvenido " + c.getNombre() + " " + c.getApellido() + " cliente estándar.");
+                                    System.out.println("Bienvenido cliente " + c.getNombre() + " " + c.getApellido() + ".");
                                     System.out.println("1. Reservar hospedaje");
                                     System.out.println("2. Reservar transporte");
                                     System.out.println("3. Reservar entretenimiento");

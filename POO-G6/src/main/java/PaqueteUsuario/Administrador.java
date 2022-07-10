@@ -10,21 +10,23 @@ import java.util.ArrayList;
  *
  * @author Gerson
  */
-public class Administrador extends Usuario{
-    
+public class Administrador extends Usuario {
+
     /**
-     * Administrador recibe primero el # de cédula luego el nombre, apellido, usuario, y contraseña.
+     * Administrador recibe primero el # de cédula luego el nombre, apellido,
+     * usuario, y contraseña.
+     *
      * @param nCedula
      * @param nombre
      * @param apellido
      * @param nombreUsuario
-     * @param contrasenia 
+     * @param contrasenia
      */
-    
-    public Administrador(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular){
+    public Administrador(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular) {
         super(nCedula, nombre, apellido, nombreUsuario, contrasenia, nCelular);
     }
-        /**
+
+    /**
      * Consultar el total de reservas por ciudad y el total general
      */
     @Override
@@ -45,34 +47,35 @@ public class Administrador extends Usuario{
         }
         int sumandoR = 0;
         for (int j = 0; j < ciudades.size(); j++) {
-            
+
             System.out.println("********************" + ciudades.get(j) + "********************");
             int contRE = 0;
             int contRH = 0;
             int contRT = 0;
             for (int i = 1; i < reservas.size(); i++) {
-                
+
                 if (ciudades.get(j).equals(reservas.get(i).split(",")[7])) {
                     if (reservas.get(i).split(",")[2].equals("transporte")) {
                         contRT++;
                     } else if (reservas.get(i).split(",")[2].equals("entretenimiento")) {
                         contRE++;
-                    }else if (reservas.get(i).split(",")[2].equals("hospedaje")){
+                    } else if (reservas.get(i).split(",")[2].equals("hospedaje")) {
                         contRH++;
                     }
                 }
             }
-            System.out.println("Entretenmientos reservados: "+contRE);
-            System.out.println("Hospedajes reservados: "+contRH);
-            System.out.println("Transportes reservados: "+contRT);
-            sumandoR+=contRE+contRH+contRT;
+            System.out.println("Entretenmientos reservados: " + contRE);
+            System.out.println("Hospedajes reservados: " + contRH);
+            System.out.println("Transportes reservados: " + contRT);
+            sumandoR += contRE + contRH + contRT;
         }
         System.out.println("***************************************");
-        System.out.println("Reservas totales: "+sumandoR);
-        
+        System.out.println("Reservas totales: " + sumandoR);
+
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return nombreUsuario + " " + contrasenia;
     }
 }

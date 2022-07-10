@@ -6,3 +6,4 @@ cedula,nombre,apellido,user,contraseña,celular,tipoUsuario
 0959441505,Gerson,Mieles,gdmieles,gg2002ger,0986565284,V
 0986565248,Martha,Merchan,martham,martitaloca,0985481245,V
 0549865413,Vanessa,Fuentes,vfuentes,vafu2002,0985586535,V
+0981535284,Dante,Anchundia,dasisclo,asisclo1980,0986565357,C

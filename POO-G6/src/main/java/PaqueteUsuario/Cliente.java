@@ -27,7 +27,14 @@ public class Cliente extends Usuario {
     private TipoCliente tipoCliente;
     private int edad;
     private String nT_credito;
-
+    
+    
+    /**
+     * Constructor que recibe los parámetro correspondientes y los inicializa
+     * como un cliente
+     * @param edad datos nuevos que recibe como cliente
+     * @param nT_credito tarjeta de crédito
+     */
     public Cliente(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular, TipoCliente tipoCliente, int edad, String nT_credito) {
         super(nCedula, nombre, apellido, nombreUsuario, contrasenia, nCelular);
         this.tipoCliente = tipoCliente;
@@ -60,7 +67,11 @@ public class Cliente extends Usuario {
     public void setNT_credito() {
         this.nT_credito = nT_credito;
     }
+    
 
+    /**
+     * Método abstracto de usuario sobreescrito en cliente que muestra las reservas realizadas de ESTE cliente
+     */
     @Override
     public void consultarReserva() {
         System.out.println("/*************SERVICIOS RESERVADOS*************/");
@@ -107,7 +118,10 @@ public class Cliente extends Usuario {
         }
 
     }
-
+    
+    /**
+     * Método que reserva un hospedaje disponible y pide una habitación de hotel o departamento dependiendo de la opción que escoja el cliente
+     */
     public void reservarHospedaje() {
         Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
@@ -188,7 +202,7 @@ public class Cliente extends Usuario {
                         ManejoArchivos.EscribirArchivo("reservaHospedaje.txt", registro);
                     }
                     //else MandarAlMenu()
-                } else {//No hay habitaciones libres en ese hotel, hay que elegir de nu nuevo
+                } else {//No hay habitaciones libres en ese hotel, hay que elegir de nuevo
                     System.out.println("No hay habitaciones libres");
                     continue;
                 }
@@ -229,6 +243,9 @@ public class Cliente extends Usuario {
         }
     }
 
+    /**
+     * Método que reserva el transporte que el cliente escoja
+     */
     public void reservarTransporte() {
         Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
@@ -301,6 +318,9 @@ public class Cliente extends Usuario {
         }
     }
 
+    /**
+     * Método que reserva un entretenimiento que escoja el cliente
+     */
     public void ReservarEntretenimiento() {
         Reserva.actualizarReserva();
         System.out.println("/****************RESERVACION*****************/"
@@ -379,6 +399,13 @@ public class Cliente extends Usuario {
         }
     }
     
+    /**
+     * Pagar reserva que el cliente con su código de reserva pida pagar, pide los parámetros tarjeta de crédito cuando su elección sea de pagar con la misma
+     * @param nT_credito
+     * @param anio_venc
+     * @param mes_venc
+     * @return 
+     */
     public double PagarReserva(String nT_credito, String anio_venc, String mes_venc) {
         Pago.actualizarContPago();
         System.out.println("/**************PAGO DE RESERVA***************/"
@@ -441,6 +468,11 @@ public class Cliente extends Usuario {
         return 0.0;
     }
 
+    /**
+     * sobrecarga del método pagarReserva que recibe el número del cheque 
+     * @param n_cheque
+     * @return 
+     */
     public double PagarReserva(String n_cheque) {
         Pago.actualizarContPago();
         System.out.println("/**************PAGO DE RESERVA***************/"

@@ -16,7 +16,15 @@ public abstract class Usuario {
     protected String nombreUsuario;
     protected String contrasenia;
     protected String nCelular;
-    
+    /**
+     * Creación de un usuario
+     * @param nCedula el número de cedula
+     * @param nombre el nombre del usuario
+     * @param apellido el apellido del usuario
+     * @param nombreUsuario el usuario ID con el que está registardo
+     * @param contrasenia la contraseña para ingresar
+     * @param nCelular su número de celular
+     */
     public Usuario(String nCedula, String nombre, String apellido, String nombreUsuario, String contrasenia, String nCelular){
         this.nCedula = nCedula;
         this.nombre = nombre;
@@ -25,7 +33,6 @@ public abstract class Usuario {
         this.contrasenia = contrasenia;
         this.nCelular = nCelular;
     }
-    
     //Metodos getters
     public String getNCedula(){return nCedula;}
     public String getNombre(){return nombre;}
@@ -33,15 +40,17 @@ public abstract class Usuario {
     public String getNombreUsuario(){return nombreUsuario;}
     public String getContrasenia(){return contrasenia;}
     public String getNCelular(){return nCelular;}
-    
     //Metodos setters
     public void setNCedula(String nCedula){this.nCedula = nCedula;}
     public void setNombre(String nombre){this.nombre = nombre;}
     public void setApellido(String apellido){this.apellido = apellido;}
     public void setNombreUsuario(String nombreUsuario){this.nombreUsuario = nombreUsuario;}
     public void setContrasenia(String contrasenia){this.contrasenia = contrasenia;}
-    public void setNCelular(){this.nCelular = nCelular;}
+    public void setNCelular(String nCelular){this.nCelular = nCelular;}
     
+    /**
+     * Método abstracto consultarReservas de usuario que se sobreescribirá en cliente y administrador
+     */
     public abstract void consultarReserva();
     
 }
