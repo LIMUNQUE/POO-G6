@@ -42,26 +42,8 @@ public class Sistema {
             }
         }
         
-        System.out.println(usuarios);
-        
-//        System.out.print("Ingrese su usuario: ");
-//                    String user = sc.nextLine();
-//                    System.out.print("Ingrese su contraseña: ");
-//                    String contrasenia = sc.nextLine();
-//
-//                    for (int i = 0; i < usuarios.size(); i++) {
-//                        if (usuarios.get(i).getNombreUsuario().equals(user) && usuarios.get(i).getContrasenia().equals(contrasenia)) {
-//                            System.out.println("Si");
-//                        } else {
-//                            System.out.println("No");
-//                        }
-//                    }
-
-                            
-                            
-                            
-                            
-        
+//         System.out.println(usuarios);
+ 
 
         System.out.println(""
                 + "+++++++++++++++++++++++++++++++++++++++++++++"
