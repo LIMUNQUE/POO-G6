@@ -59,14 +59,23 @@ public class Cliente extends Usuario{
                 System.out.println("Servicio: "+informacion[2]);
                 if(informacion[2].toLowerCase().equals("entretenimiento")){
                     System.out.print("Paquete: ");
+                    System.out.println("null");
                 }
                 if(informacion[2].toLowerCase().equals("transporte")){
                     System.out.print("Vehículo: ");
+                    System.out.println("null");
                 }
                 if(informacion[2].toLowerCase().equals("hospedaje")){
                     System.out.print("Hotel: ");
+                    ArrayList<String> reserva = ManejoArchivos.LeeFichero("reservaHospedaje.txt");
+                    for(int j=1; j<reserva.size();j++){
+                        String[] informacionReserva = reserva.get(j).split(",");
+                        if(informacionReserva[0].equals(informacion[0])){
+                            if(informacionReserva[2].equals("Departamento")) System.out.println("Departamento");
+                            else System.out.println("Hotel");
+                        }
+                    }
                 }
-                System.out.println("Caracteristica");
                 System.out.println("Fecha Reserva: "+ informacion[1]);
                 System.out.println("Desde: "+ informacion[4]);
                 System.out.println("Hasta: "+ informacion[5]);
@@ -193,6 +202,8 @@ public class Cliente extends Usuario{
                         int numeroReserva = Reserva.aumentarContReserva();
                         String registro =String.format("%d,%s,Hospedaje,%s,%s,%s,%f,%s%n", numeroReserva,LocalDate.now(),nombre+" "+apellido,fEntrada,fSalida,(Float.parseFloat(informacion[1])*dd.toDays()),ciudad);
                         ManejoArchivos.EscribirArchivo("reservas.txt", registro);
+                        registro = String.format("%d,%s,Departamento,%f,%n", numeroReserva,informacion[0],(Float.parseFloat(informacion[1])*dd.toDays()));
+                        ManejoArchivos.EscribirArchivo("reservaHospedaje.txt", registro);
                         
                 }
                 //else mandarAlMenu();
