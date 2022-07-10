@@ -1,3 +1,4 @@
 numeroReserva,códigoVehiculo,valorPagar
 1,8975,150.00
 2,9273,450.0
+6,9198,320.0

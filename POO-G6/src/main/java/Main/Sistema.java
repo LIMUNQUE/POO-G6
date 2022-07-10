@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.poo.g6;
+package Main;
 
+import PaqueteUsuario.ManejoArchivos;
+import PaqueteUsuario.Usuario;
+import PaqueteUsuario.Cliente;
+import PaqueteUsuario.Administrador;
 import java.util.Scanner;
-import PCliente.*;
 import Enums.TipoCliente;
 import java.util.ArrayList;
 
@@ -32,12 +35,12 @@ public class Sistema {
                 int edad = Integer.parseInt(datosC[1]);
                 
                 if (datosU[0].equals(datosC[0])) {
-                    if (TipoCliente.valueOf(datosU[6]) == TipoCliente.C || TipoCliente.valueOf(datosU[6]) == TipoCliente.V) {
                         usuarios.add(new Cliente(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5],TipoCliente.valueOf(datosU[6]), edad, datosC[2]));
-                    }else{
+                    
+                }else{
                         usuarios.add(new Administrador(datosU[0], datosU[1], datosU[2], datosU[3], datosU[4], datosU[5]));
                     }
-                }
+                
             }
         }
 
@@ -97,7 +100,7 @@ public class Sistema {
                                                 String cheque = sc.nextLine();
                                                 c.PagarReserva(cheque);
                                             } else {
-                                                System.out.print("Ingrese su número de trajeta: ");
+                                                System.out.print("Ingrese su número de tarjeta: ");
                                                 String nt = sc.nextLine();
                                                 System.out.print("Ingrese año de vencimiento: ");
                                                 String anioV = sc.nextLine();

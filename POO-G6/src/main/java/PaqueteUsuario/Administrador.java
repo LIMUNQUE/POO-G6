@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PCliente;
+package PaqueteUsuario;
 
 import java.util.ArrayList;
 
@@ -27,6 +27,7 @@ public class Administrador extends Usuario{
         /**
      * Consultar el total de reservas por ciudad y el total general
      */
+    @Override
     public void consultarReserva() {
         System.out.println("""
                            /****************Resumen de Servicios Reservados*****************/

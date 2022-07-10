@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PCliente;
+package PaqueteUsuario;
 import Enums.Estado;
 import Enums.TipoCliente;
 import Enums.TransmisionV;
-import PServicios.Entretenimiento;
-import PServicios.Vehiculo;
-import com.mycompany.poo.g6.Pago;
-import com.mycompany.poo.g6.Reserva;
+import PaqueteServicio.Entretenimiento;
+import PaqueteServicio.Vehiculo;
+import Datos.Pago;
+import Datos.Reserva;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,6 +43,7 @@ public class Cliente extends Usuario{
     public void setNT_credito(){this.nT_credito = nT_credito;}
     
 
+    @Override
     public void consultarReserva(){
         System.out.println("/*************SERVICIOS RESERVADOS*************/");
         System.out.println("/*                                            */");
@@ -506,5 +507,10 @@ public class Cliente extends Usuario{
         System.out.println("Permite cancelación gratis: "+informacion[7]);
         System.out.println("/**********************/");
         System.out.println();
+    }
+    
+    @Override
+    public String toString(){
+        return nombreUsuario;
     }
 }

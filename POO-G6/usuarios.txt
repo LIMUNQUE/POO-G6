@@ -1,7 +1,7 @@
 cedula,nombre,apellido,user,contraseña,celular,tipoUsuario
 0923547362,Luis,Mancero,lmancero,qwerty,0983637223,C
-0986353323,Juan,Gómez,jgome,38373,093727266,A
-0945698598,Marco,Cárdenas,mcarden,abcde,0975342533,C
+0986353323,Juan,Gomez,jgome,38373,093727266,A
+0945698598,Marco,Cardenas,mcarden,abcde,0975342533,C
 0927733345,Carlos,Montalvo,cmontal,283fjw,0987652433,V
 0959441505,Gerson,Mieles,gdmieles,gg2002ger,0986565284,V
 0986565248,Martha,Merchan,martham,martitaloca,0985481245,V

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PCliente;
+package PaqueteUsuario;
 
 /**
  *
@@ -39,7 +39,7 @@ public abstract class Usuario {
     public void setNombre(String nombre){this.nombre = nombre;}
     public void setApellido(String apellido){this.apellido = apellido;}
     public void setNombreUsuario(String nombreUsuario){this.nombreUsuario = nombreUsuario;}
-    public void setContraseñia(String contrasenia){this.contrasenia = contrasenia;}
+    public void setContrasenia(String contrasenia){this.contrasenia = contrasenia;}
     public void setNCelular(){this.nCelular = nCelular;}
     
     public abstract void consultarReserva();

@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.poo.g6;
+package Datos;
 import Enums.TipoCliente;
-import PServicios.Servicio;
-import PCliente.Cliente;
-import PCliente.ManejoArchivos;
+import PaqueteServicio.Servicio;
+import PaqueteUsuario.Cliente;
+import PaqueteUsuario.ManejoArchivos;
 import java.util.ArrayList;
 /**
  *
