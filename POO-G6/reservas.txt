@@ -5,3 +5,5 @@ numeroReserva,fecha reserva,tipoReserva,nombreCliente,desde,hasta,valorPagar,ciu
 4,2022-07-08,entretenimiento,David Martinez,25/09/2022,25/09/2022,49.99,Cuenca
 5,2022-07-08,Hospedaje,Juan Lopez,07/08/2022,07/10/2022,700.000000,6 de Marzo
 
+6,2022-07-09,Hospedaje,Juan Lopez,07/06/2022,08/20/2022,15750.000000,
+
