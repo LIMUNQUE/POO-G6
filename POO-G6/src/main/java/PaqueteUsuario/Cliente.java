@@ -485,8 +485,8 @@ public class Cliente extends Usuario {
             if (reservas.get(i).split(",")[0].equals(codigoReserva)) {
                 if (tipoCliente == TipoCliente.C) {
                     String valorPagar = reservas.get(i).split(",")[6];
-                    double valorPagar_conv = Double.parseDouble(valorPagar);
-                    double valorTotalPagar = valorPagar_conv + (valorPagar_conv * 0.10);
+                    double valorTotalPagar = Double.parseDouble(valorPagar);
+                    
                     int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"
@@ -513,7 +513,7 @@ public class Cliente extends Usuario {
                     String valorPagar = reservas.get(i).split(",")[6];
                     double valorPagar_conv = Double.parseDouble(valorPagar);
                     double descuento = valorPagar_conv * 0.15;
-                    double valorTotalPagar = (valorPagar_conv + (valorPagar_conv * 0.10)) - descuento;
+                    double valorTotalPagar = valorPagar_conv  - descuento;
                     int numeroPago = Pago.aumentarContPago();
                     System.out.println("¿Desea confirmar el pago?"
                             + "\n1) Si"

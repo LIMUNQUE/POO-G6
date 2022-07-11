@@ -1,2 +1,3 @@
 numeroReserva,numeroPago,cliente,fechaPago,valorPagar,valorPagarFinal,tipoPago,numero,(mes/año)caducidad
 6,1,Luis Mancero,2022-07-09,320.0,352.0,TARJETA,21252369853125,(2023/04)
+9,1,David Ramos,2022-07-10,300.0,330.0,CHEQUE,15154516615056,2022-07-11

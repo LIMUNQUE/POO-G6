@@ -7,3 +7,4 @@ cedula,nombre,apellido,user,contraseña,celular,tipoUsuario
 0986565248,Martha,Merchan,martham,martitaloca,0985481245,V
 0549865413,Vanessa,Fuentes,vfuentes,vafu2002,0985586535,V
 0981535284,Dante,Anchundia,dasisclo,asisclo1980,0986565357,C
+0914856751,David,Ramos,davidr,123444,0909090955,C
